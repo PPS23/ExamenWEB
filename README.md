@@ -1,27 +1,23 @@
 # ExamenWEB
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.1.2.
+Proyecto de tipo WEB para uso de pruebas de dominio publico, utilizado para la administración de contactos, con una pequeña capa de seguridad aplicando JWT, tambien separa el 
+componente principal que es de tipo publico ya que en este no es necesario iniciar sesión para poder visualizarlo. Para ello se utilizo rutas que estas a su vez cargan a
+un modulo separado del inicial debido a que en este se contendra todo lo que sea privado. Tambien se utilizo guards el metodo canActivate que valida que exista un token
+dentro del "localStorage" para asi permitir al usuario ingresar o no a ciertos componentes al momento de ejecutar la aplicación.
 
-## Development server
+Para los llamados a la API, se utilizan servicios que contienen funciones con los metodos comunes de un CRUD. Ante cada petición se utilizo un Interceptor que a su vez este
+manda llamar al archivo "enviroment" ya que dentro se encuentra la ruta hacia la API, debido a esto hay que modificarse en caso que la URL de la API sea distinta.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Para el diseño se utilizo Bootstrap y para la interaccion del mismo jQuery y Popper.js, ya que son librerias necesarias para la utilización de modals y tablas, que por cierto,
+se hace uso de DataTable un plugin para desplegar tablas de lado visual HTML que a su vez cuentan ya con paginado y busquedas.
 
-## Code scaffolding
+Angular CLI 12.1.2.
+Bootstrap 5.1
+jQuery 3.6.0
+Popper.js 1.16.1
+DataTable 1.11.2
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Build
+Autor: Pedro Pablo Soto
+Email: pedro_pablo@live.com.mx
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
