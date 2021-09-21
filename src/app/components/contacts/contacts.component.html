@@ -1,0 +1,127 @@
+
+<h4>Contacts Administration</h4>
+
+<div class="row">
+    <div class="col-xs-3 col-md-3 col-lg-3">
+        <button class="btn btn-success" class="btn btn-success" value="New" data-bs-toggle="modal" data-bs-target="#addNewContactModal" (click)="resetForm()">Add</button>
+        &nbsp;
+        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#loadCSVModal">Load CSV</button>
+    </div>
+</div>
+
+<div class="container mt-5">
+    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Name</th>
+          <th>Address</th>
+          <th>Phone</th>
+          <th>CURP</th>
+          <th></th>
+        </tr>
+      </thead> 
+      <tbody>
+        <tr *ngFor="let c of contacts">
+          <td>{{ c.id }}</td>
+          <td>{{ c.name }}</td>
+          <td>{{ c.address }}</td>
+          <td>{{ c.phone }}</td>
+          <td>{{ c.curp }}</td>
+          <td>
+            <button class="btn btn-warning" (click)="editContact(c)" data-bs-toggle="modal" data-bs-target="#addNewContactModal">Edit</button>
+            &nbsp;
+            <button class="btn btn-danger" (click)="deleteContact(c.id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+</div>
+
+
+<!-- Add and Update Contact -->
+<div class="modal fade" id="addNewContactModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="addNewContactModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">New Contact</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+  
+            <form [formGroup]="addNewContactForm">
+              <div class="mb-3">
+                <label for="names" class="form-label">Name</label>
+                <div class="col-lg-8">
+                  <input type="text" class="form-control" id="names" formControlName="names" maxlength="50">
+                  <div class="text-danger" *ngIf="addNewContactForm.controls.names.touched && addNewContactForm.controls.names.invalid">
+                    Name is required.
+                  </div>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label for="address" class="form-label">Addres</label>
+                <div class="col-lg-8">
+                  <input type="text" class="form-control" id="address" formControlName="address" maxlength="150">
+                  <div class="text-danger" *ngIf="addNewContactForm.controls.address.touched && addNewContactForm.controls.address.invalid">
+                    Address is required.
+                  </div>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label for="phone" class="form-label">Phone</label>
+                <div class="col-lg-8">
+                  <input type="text" class="form-control" id="phone" formControlName="phone" maxlength="15">
+                  <div class="text-danger" *ngIf="addNewContactForm.controls.phone.touched && addNewContactForm.controls.phone.invalid">
+                    Phone is required.
+                  </div>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label for="curp" class="form-label">CURP</label>
+                <div class="col-lg-8">
+                  <input type="text" class="form-control" id="curp" formControlName="curp" maxlength="20">
+                  <div class="text-danger" *ngIf="addNewContactForm.controls.curp.touched && addNewContactForm.controls.curp.invalid">
+                    CURP is required.
+                  </div>
+                </div>
+              </div>
+
+            </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-success" [disabled]="!addNewContactForm.valid" (click)="addNewContact()">Save</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+<!-- Add using CSV file -->
+<div class="modal fade" id="loadCSVModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="loadCSVModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title">Load CSV File</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <a href="../../../assets/Contacts.csv">CSV Base</a>
+          <br />
+            <div class="mt-2">
+                
+                <app-uploadcsv (onUploadFinished)="fileUploaded($event)"></app-uploadcsv>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
